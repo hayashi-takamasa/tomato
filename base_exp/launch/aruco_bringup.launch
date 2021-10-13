@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<launch>
+    <node pkg="base_perception" type="marker_realsense.py" name="marker_realsense" />
+    <node pkg="base_perception" type="markerBoardCast_realsense.py" name="markerBoardCast_realsense" />
+    <node pkg="base_exp" type="test_osoyoo_aruco.py" name="test_osoyoo_aruco" />
+</launch>
