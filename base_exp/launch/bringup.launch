@@ -1,16 +1,10 @@
 <?xml version="1.0"?>
 <launch>
-    <arg name="mode" default="osoyoo"/>
-
     <!-- start low level controller -->
-    <include file="$(find base_control)/launch/control.launch">
-        <param name="mode" default="$(arg mode)"/>
-    </include>
+    <include file="$(find base_control)/launch/control.launch" />
 
     <!-- start joystick controller -->
-    <include file="$(find base_control)/launch/teleop.launch">
-        <param name="mode" default="$(arg mode)"/>
-    </include>
+    <include file="$(find base_control)/launch/teleop.launch" />
 
     <!-- start sensor -->
     <include file="$(find base_exp)/launch/realsense.launch" />
@@ -18,17 +12,13 @@
     <!-- <include file="$(find base_perception)/launch/rtabmap.launch" /> -->
 
     <!-- start high level controller -->
-    <include file="$(find base_navigation)/launch/move_base_mapless_demo.launch">
-        <param name="mode" default="$(arg mode)"/>
-    </include>
+    <include file="$(find base_navigation)/launch/move_base_mapless_demo.launch" />
     
     <!-- start Arduino connection -->
-    <include file="$(find base_arduino)/launch/arduino_bringup.launch" />
-    <node pkg="base_control" type="twist2pwm_osoyoo.py" name="twist2pwm_osoyoo" />
+    <!-- <include file="$(find base_arduino)/launch/arduino_bringup.launch" />
+    <node pkg="base_control" type="twist2pwm_osoyoo.py" name="twist2pwm_osoyoo" /> -->
 
     <!-- start Rviz -->
-    <include file="$(find base_viz)/launch/view_robot.launch" >
-        <param name="mode" value="$(arg mode)"/>
-    </include>
+    <include file="$(find base_viz)/launch/view_robot.launch" />
 
 </launch>
