@@ -7,16 +7,15 @@
     <include file="$(find base_control)/launch/teleop.launch" />
 
     <!-- start sensor -->
-    <include file="$(find base_exp)/launch/realsense.launch" />
-    <include file="$(find base_perception)/launch/cloud2laserscan.launch" />
+    <!-- <include file="$(find base_exp)/launch/realsense.launch" />
+    <include file="$(find base_perception)/launch/cloud2laserscan.launch" /> -->
     <!-- <include file="$(find base_perception)/launch/rtabmap.launch" /> -->
 
     <!-- start high level controller -->
-    <include file="$(find base_navigation)/launch/move_base_mapless_demo.launch" />
+    <!-- <include file="$(find base_navigation)/launch/move_base_mapless_demo.launch" /> -->
     
-    <!-- start Arduino connection -->
-    <!-- <include file="$(find base_arduino)/launch/arduino_bringup.launch" />
-    <node pkg="base_control" type="twist2pwm_osoyoo.py" name="twist2pwm_osoyoo" /> -->
+    <!-- start micom connection -->
+    <node pkg="base_control" type="serial_twist.py" name="serial_twist" output="screen"/> 
 
     <!-- start Rviz -->
     <include file="$(find base_viz)/launch/view_robot.launch" />
