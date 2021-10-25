@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 from math import trunc
 import rospy
 import rospkg
@@ -11,6 +11,7 @@ class SerialTwist():
         rospy.init_node("serialtwist", anonymous=True)
         rospy.Subscriber("/base_velocity_controller/cmd_vel", Twist, self.callback)
         self.ser = serial.Serial('/dev/ttyUSB0', 115200)
+        
 
     def callback(self, message):
         rospy.loginfo("subscribe cmd_vel")
@@ -18,7 +19,7 @@ class SerialTwist():
         v_y = str(message.linear.y)
         omega = str(message.angular.z)
         print(v_x, v_y, omega)
-        self.ser.write(v_x+','+v_y+','+omega+'\n\n')
+        self.ser.write(str.encode(v_x+','+v_y+','+omega+'\n\n'))
 
 
 if __name__ == "__main__":
