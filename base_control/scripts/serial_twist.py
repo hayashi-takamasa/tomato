@@ -9,7 +9,7 @@ import serial
 class SerialTwist():
     def __init__(self):
         rospy.init_node("serialtwist", anonymous=True)
-        rospy.Subscriber("/base_velocity_controller/cmd_vel", Twist, self.callback)
+        rospy.Subscriber("/base_velocity_controller/cmd_vel", Twist, self.callback,queue_size=1)
         self.ser = serial.Serial('/dev/ttyUSB0', 115200)
         
 
