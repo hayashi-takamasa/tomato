@@ -16,7 +16,7 @@ class Base_Harvesting():
         self.stop.linear.x = 0
         self.stop.angular.z = 0
 
-    def convert_goal(self,goal_pose):
+    def convert_goal(self, goal_pose):
         goal = MoveBaseGoal()
         goal.target_pose.header.frame_id = "t265_odom_frame"
         goal.target_pose.header.stamp = rospy.Time.now()
@@ -26,7 +26,7 @@ class Base_Harvesting():
         goal.target_pose.pose.orientation.w = goal_pose.orientation.w
         return goal
 
-    def approach_shelf():
+    def approach_shelf(self):
         print("process start")
         pos_shelf = rospy.wait_for_message("base/pos_shelf", Pose) 
         movebaseGoal = self.convert_goal(pos_shelf)
@@ -38,7 +38,7 @@ class Base_Harvesting():
         else:
             print("Goal Reached")
 
-    def move_sideway():
+    def move_sideway(self):
         isMove = rospy.wait_for_message("base/isMove", Bool)
         if isMove:
             print("start move_sideway")
