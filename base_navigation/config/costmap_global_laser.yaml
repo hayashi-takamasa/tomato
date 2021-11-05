@@ -1,4 +1,4 @@
-global_frame: odom
+global_frame: t265_odom_frame
 rolling_window: true
 track_unknown_space: true
 
