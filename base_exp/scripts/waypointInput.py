@@ -11,7 +11,7 @@ from math import pi
 
 class WpNavi():
     def __init__(self):
-        self.way_point = [[0.2, 0.0,0.0 * pi], [999, 999, 999]]
+        self.way_point = [[0.5, 0.0, 0.0 * pi], [999, 999, 999]]
         self.ac = actionlib.SimpleActionClient('move_base', MoveBaseAction)
         self.goal = MoveBaseGoal()
         rospy.on_shutdown(self.shutdown)
@@ -19,6 +19,9 @@ class WpNavi():
     def shutdown(self):
         rospy.loginfo("The robot was terminated.")                               
         self.ac.cancel_goal()
+    
+    def list_to_waypoint(self,pos2):
+        return [[pos2[0], pos2[1], 0.0 * pi], [999, 999, 999]]
 
     def process(self):
         while not self.ac.wait_for_server(rospy.Duration(5)):
@@ -27,6 +30,10 @@ class WpNavi():
 
         i = 0
         while not rospy.is_shutdown():
+            xyInput = input("Input x y pose:").split(",")
+            xyInput = [float(x) for x in xyInput]
+            print(xyInput,type(xyInput))
+            self.way_point = self.list_to_waypoint(xyInput)
             self.goal.target_pose.header.frame_id = 't265_odom_frame'
             self.goal.target_pose.header.stamp = rospy.Time.now()
             self.goal.target_pose.pose.position.x = self.way_point[i][0]
