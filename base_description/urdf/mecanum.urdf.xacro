@@ -1,13 +1,13 @@
 <?xml version="1.0"?>
 <robot name="mecanum" xmlns:xacro="http://www.ros.org/wiki/xacro" >
 	<!-- load sensor models -->
-	<include filename="$(find realsense2_description)/urdf/_d435.urdf.xacro" />
+	<xacro:include filename="$(find realsense2_description)/urdf/_d435.urdf.xacro" />
 	
 	<!-- parameters -->
-	<xacro:arg name="rs_mount_xyz" default="0.35 0.0 0.16" />
+	<xacro:arg name="rs_mount_xyz" default="0.35 0.0 0.55" />
   	<xacro:arg name="rs_mount_rpy" default="0.0 0.0 0.0" />
 	<xacro:arg name="d400_xyz" default="0.0 0.0 0.0" />
-  	<xacro:arg name="d400_rpy" default="0.0 0.1745 0.0" />
+  	<xacro:arg name="d400_rpy" default="0.0 0.261 0.0" />
 
 	<!-- define colors and materials -->
 	<material name="gray">
@@ -82,8 +82,8 @@
 		<child link="rs_mount_link" />
 		<origin xyz="$(arg rs_mount_xyz)" rpy="$(arg rs_mount_rpy)" />
 	</joint>
-	<sensor_d435 parent="rs_mount_link" name="d400">
+	<xacro:sensor_d435 parent="rs_mount_link" name="d400">
 		<origin xyz="$(arg d400_xyz)" rpy="$(arg d400_rpy)" />
-	</sensor_d435>
+	</xacro:sensor_d435>
 
 </robot>
