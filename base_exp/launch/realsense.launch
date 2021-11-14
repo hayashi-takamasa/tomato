@@ -52,6 +52,6 @@
   <!-- <node pkg="tf" type="static_transform_publisher" name="t265_to_d400" args="0 0 0 0 0 0 /$(arg tf_prefix_camera1)_link /$(arg tf_prefix_camera2)_link 100"/> -->
   <!-- <node pkg="tf" type="static_transform_publisher" name="t265_to_d400" args="0 0 0 0 -0.1745 0 /$(arg tf_prefix_camera2)_link /$(arg tf_prefix_camera1)_odom_frame 100"/> -->
 
-  <node pkg="tf" type="static_transform_publisher" name="t265_to_base" args="0 0 0 0 -0.1745 0 t265_pose_frame base_link 100"/>
+  <node pkg="tf" type="static_transform_publisher" name="t265_to_base" args="0 0 0 0 -0.261 0 t265_pose_frame base_link 100"/>
   <!-- <node pkg="tf" type="static_transform_publisher" name="t265_to_base" args="0 0 0 0 0.1745 0 base_link  $(arg tf_prefix_camera1)_link 100"/> -->
 </launch>
