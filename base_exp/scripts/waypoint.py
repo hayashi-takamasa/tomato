@@ -12,7 +12,7 @@ from math import pi
 
 class WpNavi():
     def __init__(self):
-        self.way_point = [[1.1, 0.25, 0.0], [1.6, 0.25, 0.0],[2.1, 0.25, 0.0], [1.5, 0.20, 0.0],[1.0, 0.20, 0.0],[0.0, 0.00, 0.0]]
+        self.way_point = [[0.8, 0.0, 0.0], [1.3, 0.0, 0.0],[1.8, 0.0, 0.0], [1.3, 0.0, 0.0],[0.8, 0.0, 0.0],[0.0, 0.00, 0.0]]
         #self.goal_pos = [[0.5,0.0,0.0],[1.0,0.0,0.0],[1.5,0.0,0.0]]
         self.ac = actionlib.SimpleActionClient('move_base', MoveBaseAction)
         self.goal = MoveBaseGoal()
@@ -52,6 +52,7 @@ class WpNavi():
 
             succeeded = self.ac.wait_for_result(rospy.Duration(1))
             state = self.ac.get_state()
+            print(state)
             if succeeded:
                 rospy.loginfo("Succeeded: No."+str(i+1)+"("+str(state)+")")
             else:
@@ -62,6 +63,9 @@ class WpNavi():
 
             #start_move_msg = rospy.wait_for_message("xarm_dolly",String)
             command = input("Press to continue")
+            if (command == 'o') :
+                i = 5
+
         print("Done")
 
 if __name__ == '__main__':
