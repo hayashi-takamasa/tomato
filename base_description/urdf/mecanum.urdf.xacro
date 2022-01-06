@@ -86,4 +86,5 @@
 		<origin xyz="$(arg d400_xyz)" rpy="$(arg d400_rpy)" />
 	</xacro:sensor_d435>
 
+
 </robot>

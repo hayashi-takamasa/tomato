@@ -15,6 +15,7 @@
 
     <param name="base_global_planner" value="$(arg base_global_planner)"/>
     <param name="base_local_planner" value="$(arg base_local_planner)"/>  
+    <param name="recovery_behavior_enabled" value="false"/>  
     <rosparam file="$(find base_navigation)/config/planner.yaml" command="load"/>
 
     <!-- observation sources located in costmap_common.yaml -->

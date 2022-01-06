@@ -16,7 +16,7 @@
     <include file="$(find base_navigation)/launch/move_base_mapless_demo.launch" />
     
     <!-- start micom connection -->
-    <!-- <node pkg="base_control" type="serial_twist.py" name="serial_twist" output="screen"/>  -->
+    <node pkg="base_control" type="serial_twist.py" name="serial_twist" output="screen"/> 
 
     <!-- start Rviz -->
     <include file="$(find base_viz)/launch/view_robot.launch" />

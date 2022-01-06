@@ -10,7 +10,8 @@ class SerialTwist():
     def __init__(self):
         rospy.init_node("serialtwist", anonymous=True)
         rospy.Subscriber("/base_velocity_controller/cmd_vel", Twist, self.callback,queue_size=1)
-        self.ser = serial.Serial('/dev/ttyMotor', 115200)
+        # self.ser = serial.Serial('/dev/ttyMotor', 115200)
+        self.ser = serial.Serial('/dev/ttyUSB0', 115200)
         
 
     def callback(self, message):
@@ -29,5 +30,7 @@ if __name__ == "__main__":
         rospy.spin()
 
     except rospy.ROSInitException:
+        ser = serial.Serial('/dev/ttyUSB0', 115200)
+        ser.write(str.encode('0'+','+'0'+','+'0'+'\n\n'))
         pass
 

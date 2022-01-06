@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<launch>
+    <!-- Load robot description -->
+    <include file="$(find base_exp)/launch/bringup.launch" />
+
+    <!-- pc to base serial -->
+    <!-- <node pkg="base_control" type="serial_twist.py" name="serial_twist" /> -->
+
+    <!-- xarmdollytcp -->
+    <node pkg="base_control" type="tcp_server.py" name="tcp_server" />
+</launch>
