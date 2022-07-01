@@ -1,5 +1,22 @@
 <?xml version="1.0"?>
 <launch>
+  <!-- Initial /cmd_vel (0, 0, 0) puclish -->
+  <node name="initial_vel_pub" pkg="rostopic" type="rostopic"
+    args="pub -1 /base_velocity_controller/cmd_vel geometry_msgs/Twist &quot;{
+      'linear': 
+        {
+          'x': 0.0,
+          'y': 0.0,
+          'z': 0.0
+        },
+      'angular': 
+        {
+          'x': 0.0,
+          'y': 0.0,
+          'z': 0.0
+        }
+    }&quot;" />
+
   <!--- Run Move Base -->  
   <include file="$(find base_navigation)/launch/move_base.launch">
     <arg name="no_static_map" value="true"/>

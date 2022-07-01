@@ -1,13 +1,13 @@
 <?xml version="1.0"?>
-<robot name="osoyoo" xmlns:xacro="http://www.ros.org/wiki/xacro" >
+<robot name="mecanum" xmlns:xacro="http://www.ros.org/wiki/xacro" >
 	<!-- load sensor models -->
-	<include filename="$(find realsense2_description)/urdf/_d435.urdf.xacro" />
+	<xacro:include filename="$(find realsense2_description)/urdf/_d435.urdf.xacro" />
 	
 	<!-- parameters -->
-	<xacro:arg name="rs_mount_xyz" default="0.155 0.0 0.16" />
+	<xacro:arg name="rs_mount_xyz" default="0.35 0.0 0.55" />
   	<xacro:arg name="rs_mount_rpy" default="0.0 0.0 0.0" />
 	<xacro:arg name="d400_xyz" default="0.0 0.0 0.0" />
-  	<xacro:arg name="d400_rpy" default="0.0 0.1745 0.0" />
+  	<xacro:arg name="d400_rpy" default="0.0 0.261 0.0" />
 
 	<!-- define colors and materials -->
 	<material name="gray">
@@ -26,7 +26,7 @@
 		<link name="${prefix}_link">
 			<visual>
 				<geometry>
-					<cylinder radius="0.20" length="0.078" />
+					<cylinder radius="0.10" length="0.078" />
 				</geometry>
 				<material name="red"/>
 			</visual>
@@ -42,7 +42,7 @@
 		<link name="${prefix}_link">
 			<visual>
 				<geometry>
-					<cylinder radius="0.10" length="0.051" />
+					<cylinder radius="0.05" length="0.051" />
 				</geometry>
 				<material name="red"/>
 			</visual>
@@ -66,7 +66,7 @@
 		<visual>
 			<origin xyz="0 0 0" rpy="0 0 0" />
 			<geometry>
-				<box size="0.55 0.42 0.20" />
+				<box size="0.50 0.42 0.10" />
 			</geometry>
 			<material name="gray" />
 		</visual>
@@ -82,8 +82,9 @@
 		<child link="rs_mount_link" />
 		<origin xyz="$(arg rs_mount_xyz)" rpy="$(arg rs_mount_rpy)" />
 	</joint>
-	<sensor_d435 parent="rs_mount_link" name="d400">
+	<xacro:sensor_d435 parent="rs_mount_link" name="d400">
 		<origin xyz="$(arg d400_xyz)" rpy="$(arg d400_rpy)" />
-	</sensor_d435>
+	</xacro:sensor_d435>
+
 
 </robot>
