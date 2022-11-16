@@ -1,0 +1,9 @@
+{
+    "ros.distro": "noetic",
+    "python.autoComplete.extraPaths": [
+        "/home/hayashi/develops/devel/lib/python3/dist-packages",
+        "/home/hayashi/somagit_ws/devel/lib/python3/dist-packages",
+        "/home/hayashi/catkin_ws/devel/lib/python3/dist-packages",
+        "/opt/ros/noetic/lib/python3/dist-packages"
+    ]
+}

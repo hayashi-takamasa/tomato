@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<launch>
+
+    <include file="$(find base_gazebo)/launch/playpen.launch" />
+    <include file="$(find base_gazebo)/launch/base_spawn_2022.launch" />
+
+</launch>

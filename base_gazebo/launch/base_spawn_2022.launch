@@ -1,0 +1,41 @@
+<launch>
+
+  <arg name="model" default="$(find base_description)/urdf/mecanum_sample_space.urdf.xacro"/>
+  <arg name="gui" default="true" />
+  <arg name="rvizconfig" default="$(find urdf_tutorial)/rviz/urdf.rviz" />
+
+  <param name="robot_description" command="$(find xacro)/xacro $(arg model)" />
+
+  <node if="$(arg gui)" name="joint_state_publisher" pkg="joint_state_publisher_gui" type="joint_state_publisher_gui" />
+  <node unless="$(arg gui)" name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" />
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(arg rvizconfig)" required="true" />
+
+  <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" 
+	    args="-unpause 
+            -urdf 
+            -model tomato_base 
+            -param robot_description 
+            -x 0.0 
+            -y 0.0 
+            -z 0.2"
+      respawn="false" 
+      output="screen"/> 
+
+  <!-- Load controllers -->  
+  <rosparam command="load" file="$(find base_gazebo)/config/joint_state_controller.yaml"/>
+  <!-- Controllers -->
+  <node name="controller_spawner" pkg="controller_manager" type="spawner"
+      respawn="false" output="screen" ns="/tomato_base"
+      args="--namespace=/tomato_base
+      joint_state_controller
+      front_left_controller
+      front_right_controller
+      rear_left_controller
+      rear_right_controller
+      --timeout 60">
+  </node>
+  <node name="rqt_robot_steering" pkg="rqt_robot_steering" type="rqt_robot_steering"/>
+
+  <!-- <rosparam file="$(find base_gazebo)/config/gazebo_control.yaml" command="load"/> -->
+</launch>

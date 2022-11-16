@@ -1,0 +1,50 @@
+# Publish all joint states -----------------------------------
+joint_state_controller:
+  type: joint_state_controller/JointStateController
+  publish_rate: 50
+
+# Position Controllers ---------------------------------------
+# joint1_position_controller:
+#   type: velocity_controllers/JointVelocityController
+#   joint: prototype2__btm_horizontal_JOINT
+#   pid: {p: 50000.0, i: 100, d: 2000.0}
+
+front_left_controller:
+  type: velocity_controllers/JointVelocityController
+  joint: front_left_wheel_link_joint
+  pid: {p: 2000.0, i: 1, d: 10.0, i_clamp: 1}
+
+front_right_controller:
+  type: velocity_controllers/JointVelocityController
+  joint: front_right_wheel_link_joint
+  pid: {p: 2000.0, i: 1, d: 10.0, i_clamp: 1}
+
+rear_left_controller:
+  type: velocity_controllers/JointVelocityController
+  joint: rear_left_wheel_link_joint
+  pid: {p: 2000.0, i: 1, d: 10.0, i_clamp: 1}
+
+rear_right_controller:
+  type: velocity_controllers/JointVelocityController
+  joint: rear_right_wheel_link_joint
+  pid: {p: 1000.0, i: 1, d: 10.0, i_clamp: 1}
+
+# /gazebo_ros_control:   
+#   pid_gains:
+#     front_left_wheel_link_joint:
+#       p: 1000.0
+#       i: 1 
+#       d: 10.0
+#     front_right_wheel_link_joint:
+#       p: 1000.0
+#       i: 1 
+#       d: 10.0
+#     rear_left_wheel_link_joint:
+#       p: 1000.0
+#       i: 1 
+#       d: 10.0
+#     rear_right_wheel_link_joint:
+#       p: 1000.0
+#       i: 1 
+#       d: 10.0
+      

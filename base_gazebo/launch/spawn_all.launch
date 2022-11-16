@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<launch>
+    <arg name="model" default="$(find base_description)/urdf/mecanum.urdf.xacro"/>
+    <arg name="namespace" default="/" />
+    <!-- <arg name="world_name" default="$(find china_electricity)/worlds/simple_world.world"/> -->
+    <arg name="world_name" default="$(find base_gazebo)/world/test.world"/>
+	<arg name="paused" default="false"/>
+	<arg name="use_sim_time" default="true"/>
+	<arg name="gui" default="true"/>
+	<arg name="headless" default="false"/>
+	<arg name="debug" default="false"/>
+    <arg name="use_gui" default="true"/>
+
+    <include file="$(find gazebo_ros)/launch/empty_world.launch">
+        <arg name="world_name" value="$(arg world_name)" />
+        <arg name="paused" value="$(arg paused)"/>
+        <arg name="use_sim_time" value="$(arg use_sim_time)"/>
+        <arg name="gui" value="$(arg gui)" />
+        <arg name="headless" value="$(arg headless)"/>
+        <arg name="debug" value="$(arg debug)" />
+    </include>
+    
+    <!-- Robot Model -->
+    <!-- <param name="robot_description" command="$(find xacro)/xacro $(arg model)" />
+    <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher">
+        <param name="publish_frequency" value="50.0" />
+    </node>     -->
+    <group ns="/prototype2">
+        <!-- Robot Model -->
+        <param name="robot_description" command="$(find xacro)/xacro $(arg model)" />
+        <!-- Spawn Robot Model -->    
+        <include file="$(find china_electricity)/launch/spawn_urdf.launch">
+            <arg name="robot_name" value="prototype2" />
+            <arg name="x" value="-0.1" />
+            <arg name="y" value="0.72" />
+            <arg name="z" value="0.3" />
+            <arg name="roll" value="1.5708"/>
+            <arg name="pitch" value="1.5708"/>
+            <arg name="yaw" value="0" />
+            <!-- <arg name="roll" value="3.14159"/>
+            <arg name="pitch" value="0"/>
+            <arg name="yaw" value="0" /> -->
+            <arg name="urdf_robot_file" value="$(arg model)" />
+        </include>
+
+        <!-- Robot state -->
+        <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher">
+            <param name="publish_frequency" value="50.0" />
+            <remap from="/joint_states" to="/prototype2/joint_states" />
+        </node>    
+    </group>
+
+    <node name="rviz" pkg="rviz" type="rviz" />
+
+</launch>

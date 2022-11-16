@@ -1,0 +1,177 @@
+<?xml version="1.0"?>
+<robot name="mecanum" xmlns:xacro="http://www.ros.org/wiki/xacro" >
+	<!-- load sensor models -->
+	<xacro:include filename="$(find realsense2_description)/urdf/_d435.urdf.xacro" />
+	
+	<!-- parameters -->
+	<xacro:arg name="rs_mount_xyz" default="0.35 0.0 0.55" />
+  	<xacro:arg name="rs_mount_rpy" default="0.0 0.0 0.0" />
+	<xacro:arg name="d400_xyz" default="0.0 0.0 0.0" />
+  	<xacro:arg name="d400_rpy" default="0.0 0.261 0.0" />
+
+	<!-- define colors and materials -->
+
+	<xacro:macro name="front_wheel_macro" params="parent prefix xyz">
+		<joint name="${prefix}_joint" type="continuous">
+		<origin xyz="${xyz}" rpy="${radians(-90)} 0 0"/>
+		<parent link="${parent}"/>
+		<child  link="${prefix}_link"/>
+		<axis xyz="0 0 1" />
+		</joint>
+		<link name="${prefix}_link">
+			<visual>
+				<geometry>
+					<cylinder radius="0.088" length="0.063" />
+				</geometry>
+				<material name="">
+					<color rgba="1 1 1 1" />
+				</material>
+			</visual>
+			<collision>
+				<geometry>
+					<cylinder radius="0.088" length="0.063" />
+				</geometry>
+				<material name="">
+					<color rgba="1 1 1 1" />
+				</material>
+			</collision>
+			<inertial>
+				<mass value="1.6"/>
+				<origin xyz="0 0 0" rpy="0 0 0"/>
+				<inertia ixx="0.00360190" ixy="0" ixz="0" iyy="0.00360190" iyz="0" izz="0.006195"/>
+			</inertial>
+		</link>
+  	</xacro:macro>
+		<xacro:macro name="rear_wheel_macro" params="parent prefix xyz">
+		<joint name="${prefix}_joint" type="continuous">
+		<origin xyz="${xyz}" rpy="${radians(-90)} 0 0"/>
+		<parent link="${parent}"/>
+		<child  link="${prefix}_link"/>
+		<axis xyz="0 0 1" />
+		</joint>
+		<link name="${prefix}_link">
+			<visual>
+				<geometry>
+					<cylinder radius="0.088" length="0.063" />
+				</geometry>
+				<material name="">
+					<color rgba="1 1 1 1" />
+				</material>
+			</visual>
+			<collision>
+				<geometry>
+					<cylinder radius="0.088" length="0.063" />
+				</geometry>
+				<material name="">
+					<color rgba="1 1 1 1" />
+				</material>
+			</collision>
+			<inertial>
+				<mass value="1.6"/>
+				<origin xyz="0 0 0" rpy="0 0 0"/>
+				<inertia ixx="0.00360190" ixy="0" ixz="0" iyy="0.00360190" iyz="0" izz="0.006195"/>
+			</inertial>
+		</link>
+  	</xacro:macro>
+
+	<!-- define TF links -->
+	<link name="base_link"/>
+	<link name="base_footprint" />
+	<joint name="base_footprint_joint" type="fixed">
+		<parent link="base_link" />
+		<child link="base_footprint" />
+		<origin xyz="0.268 0.0 -0.1" rpy="0.0 0.0 0.0" />
+	</joint>
+	<joint name="body_joint" type="fixed">
+		<parent link="base_link"/>
+		<child  link="body_link"/>
+		<origin xyz="0.268 0.0 0.0" rpy="0 0 0"/>
+  	</joint>
+	<link name="body_link">
+		<visual>
+			<origin xyz="0 0 0" rpy="0 0 0" />
+			<geometry>
+				<box size="0.618 0.343 0.1525" />
+			</geometry>
+			<material name="">
+				<color rgba="1 1 1 1" />
+			</material>
+		</visual>
+		<collision>
+			<origin xyz="0 0 0" rpy="0 0 0" />
+			<geometry>
+				<box size="0.618 0.343 0.1525" />
+			</geometry>
+			<material name="">
+				<color rgba="1 1 1 1" />
+			</material>
+		</collision>
+		<inertial>
+			<mass value="13.6"/>
+			<origin xyz="0 0 0" rpy="0 0 0"/>
+			<inertia ixx="0.1597" ixy="0" ixz="0" iyy="0.4592" iyz="0" izz="0.5662"/>
+		</inertial>
+ 	 </link>
+	<xacro:front_wheel_macro prefix="front_left_wheel_link"  parent="base_link" xyz="0.54 0.2365 -0.04975"/>
+	<xacro:front_wheel_macro prefix="front_right_wheel_link" parent="base_link" xyz="0.54 -0.2365 -0.04975"/>
+	<xacro:rear_wheel_macro prefix="rear_left_wheel_link"  parent="base_link" xyz="0.0 0.2315 -0.04975"/>
+	<xacro:rear_wheel_macro prefix="rear_right_wheel_link" parent="base_link" xyz="0.0 -0.2315 -0.04975"/>
+
+	<link name="rs_mount_link" />
+	<joint name="mount_base_joint" type="fixed">
+		<parent link="base_link" />
+		<child link="rs_mount_link" />
+		<origin xyz="$(arg rs_mount_xyz)" rpy="$(arg rs_mount_rpy)" />
+	</joint>
+	<xacro:sensor_d435 parent="rs_mount_link" name="d400">
+		<origin xyz="$(arg d400_xyz)" rpy="$(arg d400_rpy)" />
+	</xacro:sensor_d435>
+
+
+	<transmission name="fl_wheel_trans">
+		<type>transmission_interface/SimpleTransmission</type>
+		<joint name="front_left_wheel_link_joint">
+			<hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+		</joint>
+		<actuator name="front_left">
+			<hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+			<mechanicalReduction>1</mechanicalReduction>
+		</actuator>
+	</transmission>
+	<transmission name="fr_wheel_trans">
+		<type>transmission_interface/SimpleTransmission</type>
+		<joint name="front_right_wheel_link_joint">
+			<hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+		</joint>
+		<actuator name="front_right">
+			<hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+			<mechanicalReduction>1</mechanicalReduction>
+		</actuator>
+	</transmission>
+	<transmission name="rl_wheel_trans">
+		<type>transmission_interface/SimpleTransmission</type>
+		<joint name="rear_left_wheel_link_joint">
+			<hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+		</joint>
+		<actuator name="rear_left">
+			<hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+			<mechanicalReduction>1</mechanicalReduction>
+		</actuator>
+	</transmission>
+	<transmission name="rr_wheel_trans">
+		<type>transmission_interface/SimpleTransmission</type>
+		<joint name="rear_right_wheel_link_joint">
+			<hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+		</joint>
+		<actuator name="rear_right">
+			<hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+			<mechanicalReduction>1</mechanicalReduction>
+		</actuator>
+	</transmission>
+	<gazebo>
+		<plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+			<!-- <robotNamespace>screw</robotNamespace> -->
+		</plugin>
+	</gazebo>
+
+</robot>

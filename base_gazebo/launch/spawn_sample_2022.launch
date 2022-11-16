@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<launch>
+
+  <!-- Load the URDF into the ROS Parameter Server -->
+  <param name="robot_description" command="$(find xacro)/xacro  '$(find base_description)/urdf/mecanum_sample_space.urdf.xacro'" /> 
+  <!-- <param name="robot_description" command="$(find xacro)/xacro  '$(find bunker_gazebo_sim)/urdf/bunker.xacro'" /> -->
+
+  <!-- Run a python script to the send a service call to gazebo_ros to spawn a URDF robot -->
+  <include file="$(find bunker_gazebo)/launch/realsense.launch" />
+  <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" 
+	    args="-unpause 
+            -urdf 
+            -model bunker 
+            -param robot_description 
+            -x 0.0 
+            -y 0.0 
+            -z 0.0"
+      respawn="false" 
+      output="screen"/> 
+
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
+  <!-- <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher"/> -->
+
+</launch>

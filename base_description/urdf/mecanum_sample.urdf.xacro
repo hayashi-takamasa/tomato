@@ -21,7 +21,7 @@
 		<link name="${prefix}_link">
 			<visual>
 				<geometry>
-					<cylinder radius="0.10" length="0.078" />
+					<cylinder radius="0.088" length="0.063" />
 				</geometry>
 				
 			</visual>
@@ -37,7 +37,7 @@
 		<link name="${prefix}_link">
 			<visual>
 				<geometry>
-					<cylinder radius="0.05" length="0.051" />
+					<cylinder radius="0.088" length="0.063" />
 				</geometry>
 				
 			</visual>
@@ -50,26 +50,26 @@
 	<joint name="base_footprint_joint" type="fixed">
 		<parent link="base_link" />
 		<child link="base_footprint" />
-		<origin xyz="0.0 0.0 -0.1" rpy="0.0 0.0 0.0" />
+		<origin xyz="0.268 0.0 -0.1" rpy="0.0 0.0 0.0" />
 	</joint>
 	<joint name="body_joint" type="fixed">
 		<parent link="base_link"/>
 		<child  link="body_link"/>
-		<origin xyz="0.0 0.0 0.0" rpy="0 0 0"/>
+		<origin xyz="0.268 0.0 0.0" rpy="0 0 0"/>
   	</joint>
 	<link name="body_link">
 		<visual>
 			<origin xyz="0 0 0" rpy="0 0 0" />
 			<geometry>
-				<box size="0.50 0.42 0.10" />
+				<box size="0.618 0.343 0.1525" />
 			</geometry>
 
 		</visual>
  	 </link>
-	<xacro:front_wheel_macro prefix="front_left_wheel_link"  parent="base_link" xyz="0.215 0.25 0.0"/>
-	<xacro:front_wheel_macro prefix="front_right_wheel_link" parent="base_link" xyz="0.215 -0.25 0.0"/>
-	<xacro:rear_wheel_macro prefix="rear_left_wheel_link"  parent="base_link" xyz="-0.215 0.25 -0.055"/>
-	<xacro:rear_wheel_macro prefix="rear_right_wheel_link" parent="base_link" xyz="-0.215 -0.25 -0.055"/>
+	<xacro:front_wheel_macro prefix="front_left_wheel_link"  parent="base_link" xyz="0.54 0.203 -0.04975"/>
+	<xacro:front_wheel_macro prefix="front_right_wheel_link" parent="base_link" xyz="0.54 -0.203 -0.04975"/>
+	<xacro:rear_wheel_macro prefix="rear_left_wheel_link"  parent="base_link" xyz="0.0 0.203 -0.04975"/>
+	<xacro:rear_wheel_macro prefix="rear_right_wheel_link" parent="base_link" xyz="0.0 -0.203 -0.04975"/>
 
 	<link name="rs_mount_link" />
 	<joint name="mount_base_joint" type="fixed">
